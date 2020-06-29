@@ -12,7 +12,7 @@
             
         // MARK: - VARIABLES
         // 0, Tonic Drink, 1, Armor (Index is which item, number is how many)
-        var items = [0, 0, 0, 0, 0];
+        var items = [0, 0, 0];
         // Variables represent cost in coins for each item. index: 0 = tonic, 1 = armor, 2 = evade, etc. Makes it easy to change price JUST here.
         var item_costs = [15, 10, 15];
         var item_names = ["Super Tonic", "Armor", "Evade Ability", "Lightsaber Extension", "++Max Health++"];
@@ -389,7 +389,7 @@ class Character {
                 // Any other troop
                 console.log("Yeah!", this.name, "is dead.", this.bounty, "Credits Collected")
                 // add bounty to credit count, and remove the enemy
-                credits += self.bounty
+                credits += this.bounty
                 enemy_order.shift()
 
                 // If length is greater than 0, then continue in the game loop
@@ -587,8 +587,6 @@ function randomInteger(min, max) {
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-
 
         let obiwan = new Jedi("Jedi")
         let b1_droid = new B1Droid("b1_droid");

@@ -348,6 +348,11 @@
                 if (r == true) {
                     console.log("using drink")
                     items[0]-=1
+                    
+                    // reference to the bacta count lbl
+                    let bactaCountLbl = document.getElementById("count1").innerText = "Count: "+items[0]
+                    bactaCountLbl.innerText = "Count: "+items[0]
+
                     obiwan.health = obiwan.max_health
                     health.innerText = "Health: "+obiwan.health+"/"+obiwan.max_health
                 }

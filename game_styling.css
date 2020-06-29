@@ -1,0 +1,257 @@
+h1 {
+    border-bottom:15px solid white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 60px;
+    padding:1px;
+    text-align: center;
+    color:gold;
+    font-weight: 800;
+}
+
+h2 {
+    text-align: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+label { 
+    display: block;
+    font-size:0.8rem;
+}
+
+.center_img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* All 5 attack dividers */
+.attack_view > div {
+    flex: 1;
+    width: 20%;
+    height: 100%;
+    margin:0;
+    padding:0;
+    float: left;
+    
+}
+
+/* .attack_view > div:hover {
+    animation: pop 0.3s linear 1;
+} */
+
+.stat_lbl {
+    text-align: left;
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* FIRST DIV ITEMS */
+.first_div {
+    background-color: blue;
+}
+.name_lbl {
+    text-align: center;
+    color: white;
+}
+
+/* SECOND DIV ITEMS */
+.second_div {
+    background-color: blue;
+}
+.statistics_title {
+    border-bottom:15px solid white;
+}
+
+/* THIRD DIV ITEMS */
+.third_div {
+    background-color: red; /* For browsers that do not support gradients */
+    background-image: linear-gradient(to right, blue , red);
+}
+.vs_lbl {
+    margin-top: 70%;
+    text-align: center;
+    font-size: 25px;
+    color: white;
+    vertical-align: middle;
+    font-family: Arial, Helvetica, sans-serif;
+}
+/* FOURTH DIV ITEMS */
+.fourth_div {
+    background-color: red;
+}
+/* FIFTH DIV ITEMS */
+.fifth_div {
+    background-color: red;
+}
+
+
+
+/* PLAYER ATTRIBUTES */
+
+.player_img {
+    float:bottom;
+    float:left;
+    width: 100%;
+    height: 70%;
+}
+
+.player_title {
+    color: red;
+    float: left;
+    float:bottom;
+    
+    font-size: 25px;
+    height: 50px;
+}
+
+/* ENEMY ATTRIBUTES */
+
+.enemy_img {
+    margin-top: 100px;
+    width: 300px;
+    height: 300px;
+    float: right;
+    float:bottom;
+}
+
+.gameplay_view {
+    height: 100px;
+    width: 100%;
+    background-image: linear-gradient(blue, red);
+    text-align: center;
+}
+
+.attack_view {
+    height: 400px;
+    width: 90%;
+    margin: 5%;
+    background-color: white;
+    /* text-align: center; */
+}
+
+/* Your ITEMS...ITEMS */
+
+.items_view {
+    height: 350px;
+    width: 95%;
+    background-color: lightgray;
+    margin: 2.5%;
+    text-align: center;
+}
+
+/* SHOP CELL ITEMS */
+
+.shop_title {
+    text-align: center;
+    width: 90%;
+    height: 15px;
+    color: white;
+}
+
+.shop_credit_count {
+    text-align: center;
+    width: 100%;
+    color: white;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+}
+
+.shop_view {
+    border-radius: 8px;
+    height: 400px;
+    width: 95%;
+    background-color: gold;
+    margin: 2.5%;
+    text-align: center;
+    background-image: linear-gradient(gold, black);
+}
+
+.shop_cell {
+    height: 100px;
+    width: 98%;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 1%;
+    background-color: white;
+    
+}
+
+.shop_cell:hover {
+    animation: pop 1s linear 0.05;
+}
+
+.cell_title {
+    display: inline-block;
+    float: left;
+    padding-top: 10px;
+    margin-left: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.cell_description {
+    /* padding-top: 50px; */
+    font-weight: 800;
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    margin-top: 40px;
+}
+
+.cell_purchaseBtn {
+    /* padding-top: 50px; */
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    font-weight: 800;
+    float: right;
+    padding: 12px;
+    margin-top: 20px;
+    margin-right: 5px;
+    background-color: lightgrey;
+}
+.cell_purchaseBtn:hover {
+    animation: pulse 1.0s ease-in infinite;
+}
+
+
+/* END */
+
+.gameplay_btn {
+    height: 80%;
+    width: 26%;
+    text-align: center;
+    font-size: 25px;
+    background-color: darkgray;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+}
+
+.gameplay_btn:hover {
+    color: gold;
+    animation: pulse 1.0ss ease-in infinite;
+    
+}
+.gameplay_btn:active {
+    animation: pop 0.3s linear 1;
+    color: gold;
+}
+
+
+
+
+/* Pop animation */
+@keyframes pop{
+    50%  {transform: scale(1.2);}
+}
+
+@keyframes pulse{
+    25%  {transform: scale(0.9);}
+    75%  {transform: scale(1.1);}
+  }

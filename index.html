@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Battlefront Infinity RPG
+        </title>
+        <link rel="stylesheet" href="game_styling.css" />
+    </head>
+    <body style="background-color:black;">
+        <!-- <button id="button-element">Hello There</button> -->
+        <script>
+            
+        // MARK: - VARIABLES
+        // 0, Tonic Drink, 1, Armor (Index is which item, number is how many)
+        var items = [0, 0, 0, 0, 0];
+        // Variables represent cost in coins for each item. index: 0 = tonic, 1 = armor, 2 = evade, etc. Makes it easy to change price JUST here.
+        var item_costs = [15, 10, 15];
+        var item_names = ["Super Tonic", "Armor", "Evade Ability", "Lightsaber Extension", "++Max Health++"];
+
+        var playingGame = true
+        // Wait for input
+        var awaitingInput = false
+        var credits = 50;
+        
+
+
+        // Title Of the Page
+        let title = document.createElement("h1")
+        title.classList.add("title")
+        title.innerText = "Welcome To BATTLEFRONT INFINITY"
+        document.body.append(title)
+
+        let container = document.createElement("div")
+        setAttributes(container, {"height": "40%", "width": "100%"})
+        document.body.append(container)
+
+        // Adding an image
+        var img = document.createElement("IMG");
+        img.setAttribute("src", "images/Star-Wars-banner.jpg");
+        img.setAttribute("width", "100%");
+        img.setAttribute("height", "100%");
+        img.classList.add("center_img")
+        img.style.margin = "0 auto";
+        container.append(img)
+        
+        // Contains all of the attack gameplay buttons. "Attack", "Flee", etc
+        let attackOptionsContainer = document.createElement("div");
+        setAttributes(attackOptionsContainer, {"height": "600px", "width": "80%"})
+        attackOptionsContainer.classList.add('gameplay_view');
+        attackOptionsContainer.id = 'gameplay_view'
+        document.body.append(attackOptionsContainer);
+
+        // Adds a "attack", "go to cantina" btns, etc.
+        const addGameplayBtn = (btnClass, title, id) => {
+            let button = document.createElement("button")
+            button.id = id
+            button.classList.add('gameplay_btn')
+            button.innerText = title
+            attackOptionsContainer.append(button)
+            
+        }
+        addGameplayBtn("Attack", "Attack", "Attack")
+        addGameplayBtn("Attack", "Use Item", "Items")
+        addGameplayBtn("Attack", "Visit Cantina", "Cantina")
+
+        // ATTACK VIEW CONTAINERS
+
+        // Contains the image of the player and of the enemy, and all of the attribute labels
+        let attackViewContainer = document.createElement("div");
+        attackViewContainer.classList.add('attack_view');
+        attackViewContainer.id = "attack_view"
+        document.body.append(attackViewContainer);
+
+        // Adds a "attack", "flee" etc. button.
+        const addAttackViews = (divClass) => {
+            let section = document.createElement("div")
+            section.id = divClass
+            section.classList.add('attack_div')
+            section.classList.add(divClass)
+            attackViewContainer.append(section)
+        }
+        addAttackViews("first_div")
+        addAttackViews("second_div")
+        addAttackViews("third_div")
+        addAttackViews("fourth_div")
+        addAttackViews("fifth_div")
+
+        let attackViewRef = document.getElementById("attack_view")
+
+        // FIRST DIV STUFF
+        var firstDiv = attackViewRef.getElementsByClassName("first_div")[0];
+        var playerImg = document.createElement("IMG");
+        playerImg.id = "playerImg"
+        playerImg.setAttribute("src", "images/obiwan.jpg");
+        playerImg.classList.add("player_img");
+
+        var playerName = document.createElement("h2")
+        playerName.innerText = "Obi-Wan Kenobi"
+        playerName.classList.add('name_lbl')
+
+        firstDiv.append(playerImg);
+        firstDiv.append(playerName);
+
+        // SECOND DIV STUFF
+
+        var secondDiv = attackViewRef.getElementsByClassName("second_div")[0];
+        var statsTitle = document.createElement("h2")
+        statsTitle.classList.add('statistics_title')
+        statsTitle.innerText = "Attack Statistics"
+
+        var health = document.createElement("h3")
+        health.classList.add("stat_lbl")
+        health.id = "health"
+        health.innerText = "Health: 100"
+
+        var damageLbl = document.createElement("h3")
+        damageLbl.classList.add("stat_lbl")
+        damageLbl.innerText = "Damage: 26"
+
+        var specialAttack = document.createElement("h2")
+        specialAttack.classList.add("statistics_title")
+        specialAttack.innerText = "Special Attributes"
+
+        var playerSpecialDescription = document.createElement("h3")
+        playerSpecialDescription.innerText = "20% of dealing 2x Damage"
+        playerSpecialDescription.classList.add('stat_lbl')
+
+        secondDiv.appendChild(statsTitle)
+        secondDiv.appendChild(health)
+        secondDiv.appendChild(damageLbl)
+        secondDiv.appendChild(specialAttack)
+        secondDiv.appendChild(playerSpecialDescription)
+        
+        // THIRD DIV STUFF
+
+        var third_div = attackViewRef.getElementsByClassName("third_div")[0];
+        var vsTitle = document.createElement("h3")
+        vsTitle.innerText = "VS"
+        vsTitle.classList.add('vs_lbl')
+        third_div.appendChild(vsTitle)
+
+        // FOURTH DIV STUFF
+        var fourthDiv = attackViewRef.getElementsByClassName("fourth_div")[0];
+        var enemyhealth = document.createElement("h3")
+        enemyhealth.classList.add("stat_lbl")
+        enemyhealth.innerText = "Health: 100"
+
+        var enemystatsTitle = document.createElement("h2")
+        enemystatsTitle.classList.add('statistics_title')
+        enemystatsTitle.innerText = "Attack Statistics"
+
+        var enemydamageLbl = document.createElement("h3")
+        enemydamageLbl.classList.add("stat_lbl")
+        enemydamageLbl.innerText = "Damage: 26"
+
+        var bountyLbl = document.createElement("h3")
+        bountyLbl.classList.add("stat_lbl")
+        bountyLbl.innerText = "Bounty: 0"
+
+        var enemyspecialAttack = document.createElement("h2")
+        enemyspecialAttack.classList.add("statistics_title")
+        enemyspecialAttack.innerText = "Special Attributes"
+
+        var enemySpecialDescription = document.createElement("h3")
+        enemySpecialDescription.innerText = "Special Attributes"
+        enemySpecialDescription.classList.add('stat_lbl')
+
+        fourthDiv.appendChild(enemystatsTitle)
+        fourthDiv.appendChild(enemyhealth)
+        fourthDiv.appendChild(enemydamageLbl)
+        fourthDiv.appendChild(bountyLbl)
+        fourthDiv.appendChild(enemyspecialAttack)
+        fourthDiv.appendChild(enemySpecialDescription)
+
+        // FIFTH DIV STUFF
+        var fifthDiv = attackViewRef.getElementsByClassName("fifth_div")[0];
+        var enemyImg = document.createElement("IMG");
+        enemyImg.id = "enemyImg"
+        enemyImg.setAttribute("src", "b1_droid.jpg");
+        enemyImg.classList.add("player_img");
+
+        var enemyName = document.createElement("h2")
+        enemyName.innerText = "Enemy Troop Name"
+        enemyName.classList.add('name_lbl')
+
+        fifthDiv.append(enemyImg);
+        fifthDiv.append(enemyName);
+
+        // YOUR ITEMS VIEW
+        let ItemsTitle = document.createElement("h1")
+        ItemsTitle.innerText = "YOUR ITEMS!"
+        document.body.appendChild(ItemsTitle)
+
+        let itemsView = document.createElement("div");
+        itemsView.classList.add('items_view');
+        itemsView.id = "items_view"
+        itemsView.style.overflow='auto';
+        document.body.appendChild(itemsView);
+
+        // Adds a "attack", "buy item" etc. button.
+        const addItemsCell = (itemNum, title, itemCount) => {
+            let section = document.createElement("div")
+            section.id = "item"+itemNum
+            section.classList.add('shop_cell')
+            itemsView.append(section)
+
+            let cellTitle = document.createElement("p")
+            cellTitle.classList.add("cell_title")
+            cellTitle.innerText = title
+            section.appendChild(cellTitle)
+
+            let cellDescription = document.createElement("p")
+            cellDescription.classList.add("cell_description")
+            cellDescription.id = "count"+itemNum
+            cellDescription.innerText = "Count: "+ itemCount
+            section.appendChild(cellDescription)
+
+            let button = document.createElement("button")
+            button.id = itemNum+"cellbutton"
+            button.classList.add('cell_purchaseBtn')
+            button.innerText = "Use Item"
+
+            if (itemNum == 1) {
+                button.style.display = "block"
+                button.onclick = use_item_1
+            } else {
+                button.style.display = "none"
+            }
+            section.append(button)
+        }
+        addItemsCell(1, "Bacta Juice", items[0])
+        addItemsCell(2, "Max Health Upgrade", items[1])
+        addItemsCell(3, "Double Lightsabers", items[2])
+
+        // Shop View
+        // Contains the image of the player and of the enemy
+        let shopTitleLbl = document.createElement("h1")
+        shopTitleLbl.innerText = "WELCOME TO THE CANTINA!"
+        document.body.appendChild(shopTitleLbl)
+
+        let creditLbl = document.createElement('h3')
+        creditLbl.innerText = "CREDITS: "+credits
+        creditLbl.classList.add('shop_credit_count')
+        document.body.appendChild(creditLbl)
+
+        let shopView = document.createElement("div");
+        shopView.classList.add('shop_view');
+        shopView.id = "shop_view"
+        shopView.style.overflow='auto';
+        document.body.append(shopView);
+
+        // Adds a cell to the Cantina view
+        const addShopCell = (divClass, title, desc, cost) => {
+            let section = document.createElement("div")
+            section.id = divClass
+            section.classList.add('shop_cell')
+            section.classList.add(divClass)
+            shopView.append(section)
+
+            let cellTitle = document.createElement("p")
+            cellTitle.classList.add("cell_title")
+            cellTitle.innerText = title
+            section.appendChild(cellTitle)
+
+            let cellDescription = document.createElement("p")
+            cellDescription.classList.add("cell_description")
+            cellDescription.innerText = desc
+            section.appendChild(cellDescription)
+
+            let button = document.createElement("button")
+            button.id = divClass+"cellbutton"
+            button.classList.add('cell_purchaseBtn')
+            button.innerText = "Purchase"
+
+            let clickFunctions = [shopBtn_1_called, shopBtn_2_called, shopBtn_3_called]
+
+            button.onclick = clickFunctions[divClass-1]
+            section.append(button)
+        }
+        addShopCell(1, "$15 - Bacta Juice", "Instantly Heals Obi-Wan Back to Full Health", "30")
+        addShopCell(2, "$10 - Max Health Upgrade", "Upgrade Max Health by 20 (1 Time Upgrade)", "30")
+        addShopCell(3, "$15 - Blue Lightsaber", "Double Up On Your Lightsabers for +10 Damage Per Hit", "30")
+
+        // MARK: - BUTTON PRESSES
+
+
+        // Attack Button
+        let attackBtn = document.getElementById('gameplay_view').querySelector('#Attack')
+        attackBtn.addEventListener('click', (evt)=>{
+                console.log("Attack")
+                awaitingInput = true
+                let current_enemy = enemy_order[0]
+                obiwan.attack(current_enemy)
+                current_enemy.attack(obiwan)
+                main()
+        })
+        // Scrolls user down to the Your Items Section.
+        let useItemBtn = document.getElementById('gameplay_view').querySelector('#Items')
+        useItemBtn.addEventListener('click', (evt)=>{
+            console.log("Use Items")
+            ItemsTitle.scrollIntoView();
+        })
+        let cantinaBtn = document.getElementById('gameplay_view').querySelector('#Cantina')
+        cantinaBtn.addEventListener('click', (evt)=>{
+            console.log("Go to Cantina")
+            shopTitleLbl.scrollIntoView();
+        })
+
+        // Shop Buttons
+        function shopBtn_1_called() {
+            console.log('credits '+ credits)
+            if (items[0] < 3 && credits >=15) {
+                console.log("Bought bacta juice")
+                credits-=item_costs[0]
+                items[0]+=1
+        }
+            document.getElementById("count1").innerText = "Count: "+items[0]
+            creditLbl.innerText = "CREDITS: " + credits
+        }
+        // Max Health Upgrade Btn Pressed
+        function shopBtn_2_called() {
+            if (items[1] < 1 && credits >= 10) {
+                console.log("Bought max health upgrade!")
+                credits-=item_costs[1]
+                items[1]+=1
+                obiwan.max_health = 120
+            }
+            let equipped = items[1]>0
+            document.getElementById("count2").innerText = "EQUIPPED: "+equipped
+            creditLbl.innerText = "CREDITS: " + credits
+        }
+        // Buying Extra Saber Button
+        function shopBtn_3_called() {
+            if (items[2] < 1 && credits >= 15) {
+                console.log("Bought another saber")
+                credits-=item_costs[2]
+                items[2]+=1
+            }
+            let equipped = items[2]>0
+            document.getElementById("count3").innerText = "EQUIPPED: "+equipped
+            creditLbl.innerText = "CREDITS: " + credits
+        }
+
+        // Use Button For Clicking On 'Use' Bacta Juice
+        function use_item_1() {
+            if (items[0]>0) {
+                var r = confirm("Are you sure you want to use the Bacta Juice?");
+                if (r == true) {
+                    console.log("using drink")
+                    items[0]-=1
+                    obiwan.health = obiwan.max_health
+                    health.innerText = "Health: "+obiwan.health+"/"+obiwan.max_health
+                }
+            }
+        }
+
+        // Easy way to set multiple attributes at once
+        function setAttributes(el, attrs) {
+          for(var key in attrs) {
+            el.setAttribute(key, attrs[key]);
+        }
+    }
+
+
+// GAME LOGIC
+class Character {
+    constructor(self, name='<undefined>', health=10, power=10, coins=20, bounty=5) {
+        this.name = name;
+        this.power = power
+        this.bounty = bounty
+    }
+
+    isAlive(self) {
+        if (this.health > 0) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    receive_damage(points) {
+        this.health -= points
+        console.log(this.name, "received", points, "damage")
+        console.log(this.name, "health left =", this.health)
+
+        if (this.isAlive() == false) {
+            // If its any other troop than hero, remove it from enemy_order.
+            if (this.name != "Jedi") {
+                // Any other troop
+                console.log("Yeah!", this.name, "is dead.", this.bounty, "Credits Collected")
+                // add bounty to credit count, and remove the enemy
+                credits += self.bounty
+                enemy_order.shift()
+
+                // If length is greater than 0, then continue in the game loop
+                if (enemy_order.length > 0) {
+                    console.log("NEW CHALLENGER:", enemy_order[0].name)
+                    alert("NEW CHALLENGER: "+ enemy_order[0].name);
+                    playingGame = true
+                } else {
+                    // User destroyed all of the enemies
+                    console.log('You Beat All The Enemies! Thanks for Playing!')
+                    vsTitle.innerText = "You Beat All Of The Enemies! Thanks for playing!"
+                    enemyhealth.innerText = "Health: Dead"
+                    attackBtn.disabled = true
+                    attackBtn.innerText = "You Won!"
+                    playingGame = false
+                }
+
+            } else {
+                alert("OH NO, YOU DIED!\nThanks For Playing!")
+                health.innerText = "Health: Dead"
+                attackBtn.disabled = true
+                vsTitle.innerText = "Game Over!"
+                playingGame = false
+            }
+        }
+    }
+
+    attack(enemy) {
+        if (this.isAlive() == false) {
+            return
+        } else {
+            console.log(self.name, "attacks", enemy.name)
+
+            // Power variable. Used to alter damage on special attacks and attributes.
+            let _power_ = this.power
+
+            // 20% chance of doing 2x damage
+            if (this.name == "Jedi") {
+                let chance = randomInteger(1, 5)
+                if (chance == 1) {
+                    _power_=_power_*2
+                    alert("You Dealt 2x Damage This Turn!")
+                }
+                // User has a second lightsaber attached. Deal +10 Damage per attack
+                if (items[2]>0) {
+                    _power_+=10
+                }
+            }
+
+            // 20% Chance of doing +7 Damage
+            if (this.name == "Super_Battle_Droid") {
+                let chance = randomInteger(1, 5)
+                if (chance == 1) {
+                    _power_+=7
+                    alert("The Super Battle Droid shot his wrist rocket for +7 Damage!")
+                }
+            }
+            // 90% Chance of dodging an attack
+            if (enemy.name == "Shadow_Trooper") {
+                let chance = randomInteger(1, 10)
+                if (chance != 1) {
+                    _power_=0
+                    alert("The Shadow Trooper Dodged Your Attack!")
+                }
+            }
+
+            // if palpatine is attacking, 1/25 chance of 100 Damage Lightning shock // Instakill
+            if (this.name == "Palpatine") {
+                let chance = randomInteger(1, 25)
+                if (chance == 1) {
+                    _power_ = 1000
+                    alert("Palpatine Called A Force Storm and Instakilled You!")
+                }
+            }
+            // if palpatine is attacking, 20% Chance of Force Lightning (+10 Damage)
+            if (this.name == "Palpatine") {
+                let chance = randomInteger(1, 5)
+                if (chance == 1) {
+                    _power_+=10
+                    alert("Palpatine Used Force Lighting (+10 Damage)")
+                }
+            }
+
+            // if palpatine is defending, 1/10 chance of deflecting 20 damage
+            if (self.name == "Palpatine") {
+                let chance = randomInteger(1, 10)
+                if (chance == 1) {
+                    _power_-=20
+                    alert("Palpatine Deflected 20 Damage")
+                }
+            }
+
+            console.log(name, "Dealt", _power_, "Damage to", enemy.name)
+            enemy.receive_damage(_power_)
+        }
+    }
+}
+
+class Jedi extends Character {
+    constructor(self, name, health, power, max_health, img, special_attack) {
+        super(name, health, power, max_health, img, special_attack);
+            this.name = "Jedi";
+            this.health = 100
+            this.power = 23
+            this.max_health = 100
+            this.img = "obiwan.jpg"
+            this.special_attack = "None"
+    }
+}
+
+class B1Droid extends Character {
+    constructor(self, name, health, power, bounty, img, special_attack) {
+        super(name, health, power, bounty, img, special_attack);
+            this.name = "B1_Battle_Droid"
+            this.health = 99
+            this.power = 10
+            this.bounty = 5
+            this.img = "b1_droid.jpg"
+            this.special_attack = "None"
+    }
+}
+
+class SuperBattleDroid extends Character {
+    constructor(self, name, health, power, bounty, img, special_attack) {
+        super(name, health, power, bounty, img, special_attack);
+            this.name = "Super_Battle_Droid"
+            this.health = 120
+            this.power = 12
+            this.bounty = 10
+            this.img = "super_battle_droid.png"
+            this.special_attack = "20% of shooting +7 Wrist Rocket."
+    }
+}
+
+class Palpatine extends Character {
+    constructor(self, name, health, power, bounty, img, special_attack) {
+        super(name, health, power, bounty, img, special_attack);
+            this.name = "Palpatine"
+            this.health = 120
+            this.power = 15
+            this.bounty = 10
+            this.img = "palpatine.jpg"
+            this.special_attack = "4% Of Instakill. 20% of Force Lighting (+10), 10% of dodging 20 Damage"
+    }
+}
+
+class ShadowTrooper extends Character {
+    constructor(self, name, health, power, bounty, img, special_attack) {
+        super(name, health, power, bounty, img, special_attack);
+            this.name = "Shadow_Trooper"
+            this.health = 20
+            this.power = 8
+            this.bounty = 12
+            this.img = "ShadowTrooper.png"
+            this.special_attack = "90% Chance of Dodging an Attack"
+    }
+}
+
+function main() {
+    if (playingGame == true) {
+
+         if (enemy_order.length > 0) {
+            console.log("Got Enemies to face!", enemy_order[0])
+            
+            // Set enemy lbls and imgs
+            let current_enemy = enemy_order[0]
+            enemyhealth.innerText = "Health: " + current_enemy.health
+            enemydamageLbl.innerText = "Damage: " + current_enemy.power
+            enemyImg.setAttribute("src", "images/"+current_enemy.img);
+            
+            enemyName.innerText = current_enemy.name
+            enemySpecialDescription.innerText = current_enemy.special_attack
+            bountyLbl.innerText = "Bounty: "+current_enemy.bounty
+
+            health.innerText = "Health: " + obiwan.health+"/"+obiwan.max_health
+            damageLbl.innerText = "Damage: " + obiwan.power
+
+
+            if (current_enemy.isAlive() && obiwan.isAlive()) {
+                console.log("Obi-Wan Kenobi", obiwan.health, "vs", current_enemy.name, current_enemy.health)
+
+                while (awaitingInput == true) {
+                    awaitingInput = false
+                    console.log('input received')
+                }
+            }
+         }
+    } 
+}
+
+function randomInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+
+        let obiwan = new Jedi("Jedi")
+        let b1_droid = new B1Droid("b1_droid");
+        let b1_droid_2 = new B1Droid("b1_droid")
+        let super_battle_droid = new SuperBattleDroid("super_battle_droid")
+        let shadow_trooper = new ShadowTrooper("Shadow_Trooper")
+        let palpatine = new Palpatine("Palpatine")
+        let enemy_order = [b1_droid, super_battle_droid, shadow_trooper, palpatine]
+
+        main()  
+
+
+        </script>   
+    </body>
+</html>
